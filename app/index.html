@@ -6,6 +6,7 @@
     <title>Game of Life</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/index.css'>
+    <script src="https://kit.fontawesome.com/de724a34c3.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -14,15 +15,38 @@
         </header>
         <div class="game-board container__game-board">
             <div class="game-board__canvas">
-                Game canvas
+                <table id="grid" class="game-grid"></table>
             </div>
             <div class="game-board__footer">
                 <div class="control-panel">
-                    Controls
+                    <button type="button" class="button control-panel__reset">
+                        Reset
+                    </button>
+                    <div class="button-group">
+                        <button type="button" class="button">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button id="play" type="button" class="button">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button type="button" class="button">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                    <div class="label control-panel__label">
+                        Step:&nbsp;<span class="label__emphasized">10</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src='main.js'></script>
+    <script src='scripts/iteration.js'></script>
+    <script src='scripts/main.js'></script>
+    <script>
+        initGame({
+            container: document.getElementById('grid'),
+            playButton: document.getElementById('play')
+        });
+    </script>
 </body>
 </html>

@@ -44,3 +44,67 @@
     border-top: 1px solid #292b2f;
 }
 
+.control-panel {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.control-panel__reset {
+    position: absolute;
+    left: 0;
+}
+
+.control-panel__label {
+    position: absolute;
+    right: 0;
+}
+
+.button {
+    border-radius: 3px;
+    background-color: #7289da;
+    border: 1px solid #000;
+    padding: 8px 16px;
+    color: #fff;
+    outline: none;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+.label {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: #202225;
+    display: inline-block;
+}
+
+.label__emphasized {
+    font-weight: bold;
+}
+
+.game-grid {
+    margin: auto;
+    border-spacing: 0;
+    border: 2px solid #111;
+}
+
+.game-grid td {
+    margin: 0;
+    padding: 0;
+    background-color: #4f545c;
+    border: 1px solid #111;
+    width: 22px;
+    height: 22px;
+}
+
+.game-grid td:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+.game-grid td.live-cell {
+    background-color: #43b581;
+}
