@@ -4,9 +4,9 @@ const iteration = (function () {
     function iteration(matrix) {
         const nextMatrix = [];
 
-        for (let row = 0; row < matrix.length; ++row) {
+        for (let row = 0; row < matrix.length; row++) {
             nextMatrix.push([]);
-            for (let col = 0; col < matrix[row].length; ++col) {
+            for (let col = 0; col < matrix[row].length; col++) {
                 const neighboursCount = countNeighbours(matrix, row, col);
 
                 if (neighboursCount === 3 || (neighboursCount === 2 && matrix[row][col] === LIVE)) {

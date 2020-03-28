@@ -1,61 +1,104 @@
 const initGame = (function() {
-    const GRID_COLS = 65;
-    const GRID_ROWS = 30;
     const LIVE_CLASS = 'live-cell';
-
     const grid = document.createElement('tbody');
-
-    let matrix;
+    let matrix = [];
+    const DEAD_MATRIX = [];
+    let timerId = null;
+    let stepCount = 0;
 
     function init({
+        rowsLength,
+        colsLength,
         container,
-        playButton
+        playButton,
+        resetButton,
+        label
     }) {
-        matrix = [];
-        for (let row = 0; row < GRID_ROWS; row++) {
+        updateStepCount(0);
+        for (let row = 0; row < rowsLength; row++) {
+            DEAD_MATRIX.push([]);
             matrix.push([]);
             const rowElement = document.createElement('tr');
-            for (let col = 0; col < GRID_COLS; col++) {
+            for (let col = 0; col < colsLength; col++) {
                 const colElement = document.createElement('td');
-                colElement.dataset.row = row;
-                colElement.dataset.col = col;
+                [colElement.dataset.row, colElement.dataset.col] = [row, col];
                 rowElement.append(colElement);
+                DEAD_MATRIX[row][col] = iteration.DEAD;
                 matrix[row][col] = iteration.DEAD;
             }
             grid.append(rowElement);
         }
-        container.append(grid);
-
-        grid.addEventListener('click', function (event) {
-            if (event.target.tagName === 'TD') {
-                const [row, col] = [Number(event.target.dataset.row), Number(event.target.dataset.col)];
+    
+        grid.addEventListener('click', function ({ target }) {
+            if (target.tagName === 'TD') {
+                const [row, col] = [Number(target.dataset.row), Number(target.dataset.col)];
                 if (matrix[row][col] === iteration.LIVE) {
-                    event.target.classList.remove(LIVE_CLASS);
+                    target.classList.remove(LIVE_CLASS);
                     matrix[row][col] = iteration.DEAD;
                 } else {
-                    event.target.classList.add(LIVE_CLASS);
+                    target.classList.add(LIVE_CLASS);
                     matrix[row][col] = iteration.LIVE;
                 }
             }
         });
 
-        playButton.addEventListener('click', function() {
-            const timerId = setInterval(nextIteration, 500);
+        playButton.addEventListener('click', function () {
+            if (timerId) {
+                pauseGame();
+            } else {
+                startGame();
+            }
         });
-    }
 
-    function nextIteration() {
-        matrix = iteration(matrix);
-        for (let row = 0; row < GRID_ROWS; row++) {
-            for (let col = 0; col < GRID_COLS; col++) {
+        resetButton.addEventListener('click', function() {
+            pauseGame();
+            matrix = DEAD_MATRIX.map(e => e.map(e => e));
+            mapMatrixToGrid(matrix, grid);
+            updateStepCount(0);
+        });
+
+        function updateStepCount(value) {
+            stepCount = value;
+            label.innerText = stepCount;
+        }
+
+        function startGame() {
+            timerId = setInterval(() => {
+                updateStepCount(stepCount + 1);
+                nextIteration();
+            }, 500);
+            playButton.classList.add('pause');
+        }
+
+        function pauseGame() {
+            clearInterval(timerId);
+            timerId = null;
+            playButton.classList.remove('pause');
+        }
+
+        function nextIteration() {
+            matrix = iteration(matrix);
+            mapMatrixToGrid(matrix, grid);
+        }
+
+        container.append(grid);
+    }
+    
+    function mapMatrixToGrid(matrix, grid) {
+        for (let row = 0; row < matrix.length; row++) {
+            for (let col = 0; col < matrix[row].length; col++) {
                 if (matrix[row][col] === iteration.LIVE) {
-                    grid.rows[row].cells[col].classList.add(LIVE_CLASS);
+                    getGridCell(grid, row, col).classList.add(LIVE_CLASS);
                 } else {
-                    grid.rows[row].cells[col].classList.remove(LIVE_CLASS);
+                    getGridCell(grid, row, col).classList.remove(LIVE_CLASS);
                 }
             }
         }
     }
-
+    
+    function getGridCell(grid, row, col) {
+        return grid.rows[row].cells[col];
+    }
+    
     return init;
 })();

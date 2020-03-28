@@ -19,22 +19,17 @@
             </div>
             <div class="game-board__footer">
                 <div class="control-panel">
-                    <button type="button" class="button control-panel__reset">
+                    <button id='reset' type="button" class="button control-panel__reset">
                         Reset
                     </button>
                     <div class="button-group">
-                        <button type="button" class="button">
-                            <i class="fas fa-step-backward"></i>
-                        </button>
                         <button id="play" type="button" class="button">
                             <i class="fas fa-play"></i>
-                        </button>
-                        <button type="button" class="button">
-                            <i class="fas fa-step-forward"></i>
+                            <i class="fas fa-pause"></i>
                         </button>
                     </div>
                     <div class="label control-panel__label">
-                        Step:&nbsp;<span class="label__emphasized">10</span>
+                        Step:&nbsp;<span id="label" class="label__emphasized">10</span>
                     </div>
                 </div>
             </div>
@@ -44,8 +39,12 @@
     <script src='scripts/main.js'></script>
     <script>
         initGame({
+            colsLength: 65,
+            rowsLength: 30,
             container: document.getElementById('grid'),
-            playButton: document.getElementById('play')
+            playButton: document.getElementById('play'),
+            resetButton: document.getElementById('reset'),
+            label: document.getElementById('label')
         });
     </script>
 </body>

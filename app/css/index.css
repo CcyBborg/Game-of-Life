@@ -108,3 +108,15 @@
 .game-grid td.live-cell {
     background-color: #43b581;
 }
+
+#play .fa-pause {
+    display: none;
+}
+
+#play.pause .fa-play {
+    display: none;
+}
+
+#play.pause .fa-pause {
+    display: inline;
+}
