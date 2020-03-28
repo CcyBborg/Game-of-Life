@@ -1,5 +1,7 @@
-# Game of Life
-Visual version of The Game of Life.
+# JavaScript Conway's Game of Life
+Visual JavaScript version of The Game of Life.
+
+![Conway's Game of Life](https://github.com/CcyBborg/Game-of-Life/blob/master/Capture.PNG?raw=true)
 
 ### Introduction
 The **Game of Life**, also known as **Life**, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.
